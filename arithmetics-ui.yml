@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arithmetics-ui-dpl
+spec:
+  selector:
+    matchLabels:
+      app: arithmetics-ui
+  template:
+    metadata:
+      labels:
+        app: arithmetics-ui
+    spec:
+      containers:
+      - name: arithmetics-ui
+        image: public.ecr.aws/j3c6d5f6/arithmetics-ui:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 80
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: arithmetics-ui-svc
+spec:
+  type: LoadBalancer
+  selector:
+    app: arithmetics-ui
+  ports:
+  - port: 8080
+    targetPort: 80
+    nodePort: 30000
