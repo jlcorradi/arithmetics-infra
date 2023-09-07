@@ -28,3 +28,9 @@
  ```shell
  minikube service external-service
  ```
+
+## Ingress
+Add minikube ingress
+```shell
+minikube addons enable ingress
+```
